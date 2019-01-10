@@ -4,19 +4,25 @@ body {
   color: #fff;
 }
 
-h2 {
-  text-align: center;
+.loader, h2 {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
 }
 
 .loader {
-  position: absolute;
-  left: calc(50% - 88px);
-  transform: translate(-50%, 0);
-  top: calc(50% - 88px);
+  top: 40%;
+}
+
+h2 {
+  top: 10px;
 }
 
 #map {
   display: flex;
+  margin: 30px auto 0;
+  justify-content: center;
+  align-items: center;
 }
 
 .states {
