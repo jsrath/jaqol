@@ -15,16 +15,27 @@
 <hr>
 <h1 align="center">Jaqol - Jobs and Quality of Life</h1>
 <h4 align="center">Find good places in the US with software jobs.</h4>
-<h3 align="center"><a href="https://projects.jsrath.com/jaqol">LIVE SITE</a></h3>
+<h3 align="center"><a href="https://jaqol.onrender.com/">LIVE SITE</a></h3>
 
 Built with D3.js, Jaqol plots cities ranked highly for livability and displays the number of frontend developer jobs available in each city.
 
 Cities are displayed by size and color according to their respective job markets.
 
+Job counts come from [The Muse Jobs API](https://www.themuse.com/developers/api/v2). Quality-of-life scores come from [Numbeo](https://www.numbeo.com/quality-of-life/) snapshots via the [Internet Archive](https://archive.org/) (live Numbeo blocks datacenter IPs). Production serves a bundled `data/cities-snapshot.json` and refreshes job counts in the background.
+
 ## Installation
 
 ```sh
 git clone https://github.com/jsrath/jaqol.git
+cd jaqol
+npm install
+npm start
+```
+
+Regenerate the bundled snapshot (requires network access to The Muse and archive.org):
+
+```sh
+npm run build:snapshot
 ```
 
 ## License

@@ -6,70 +6,28 @@ const app = express();
 const port = process.env.PORT || 9104;
 const CACHE_TTL_MS = Number(process.env.CACHE_TTL_MS || 1000 * 60 * 60);
 const MUSE_API = 'https://www.themuse.com/api/public/jobs';
-const NUMBEO_US_RANKINGS = 'https://www.numbeo.com/quality-of-life/region_rankings.jsp?region=019&title=2024';
 const BATCH_SIZE = 5;
 const BATCH_DELAY_MS = 250;
-const NUMBEO_DELAY_MS = 400;
 
 const cities = JSON.parse(fs.readFileSync(path.join(__dirname, 'cities.json'), 'utf8')).cities;
-let cache = { fetchedAt: 0, payload: null };
+const snapshotPath = path.join(__dirname, 'data', 'cities-snapshot.json');
+
+function loadSnapshotFromDisk() {
+  if (!fs.existsSync(snapshotPath)) {
+    return null;
+  }
+  return JSON.parse(fs.readFileSync(snapshotPath, 'utf8'));
+}
+
+const snapshotPayload = loadSnapshotFromDisk();
+let cache = {
+  fetchedAt: snapshotPayload ? Date.now() : 0,
+  payload: snapshotPayload,
+};
+let refreshInFlight = null;
 
 function wait(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-function numbeoKey(city, state) {
-  return `${city}, ${state}, United States`;
-}
-
-function citySlugs(city, state) {
-  const specialSlugs = {
-    'St. Louis': ['Saint-Louis'],
-    Washington: ['Washington'],
-  };
-
-  const base = city.replace(/\./g, '').replace(/'/g, '').trim().replace(/\s+/g, '-');
-  return [...new Set([...(specialSlugs[city] || []), base, `${base}-${state}`])];
-}
-
-function parseQualityScore(html) {
-  const match = html.match(/Quality of Life Index: <\/td>\s*<td style="text-align: right">\s*([0-9.]+)/);
-  return match ? Number(match[1]) : null;
-}
-
-async function fetchRegionalQualityScores() {
-  const response = await fetch(NUMBEO_US_RANKINGS);
-  if (!response.ok) {
-    throw new Error(`Numbeo rankings request failed (${response.status})`);
-  }
-
-  const html = await response.text();
-  const rows = [...html.matchAll(/\[\s*(-?[0-9.]+),\s*(-?[0-9.]+),\s*"([^"]+)",\s*([0-9.]+)\s*\]/g)];
-
-  return Object.fromEntries(rows.map(match => [match[3], Number(match[4])]));
-}
-
-async function fetchCityQualityScore(city, state, regionalScores) {
-  const key = numbeoKey(city, state);
-  if (regionalScores[key]) {
-    return regionalScores[key];
-  }
-
-  for (const slug of citySlugs(city, state)) {
-    const response = await fetch(`https://www.numbeo.com/quality-of-life/in/${encodeURIComponent(slug)}`);
-    if (!response.ok) {
-      continue;
-    }
-
-    const score = parseQualityScore(await response.text());
-    if (score) {
-      return score;
-    }
-
-    await wait(NUMBEO_DELAY_MS);
-  }
-
-  return null;
 }
 
 async function fetchJobCount(city, state) {
@@ -86,23 +44,22 @@ async function fetchJobCount(city, state) {
   return payload.total || 0;
 }
 
-async function buildCityData() {
-  const regionalScores = await fetchRegionalQualityScores();
+async function refreshJobCounts(basePayload) {
   const data = [];
 
   for (let index = 0; index < cities.length; index += BATCH_SIZE) {
     const batch = cities.slice(index, index + BATCH_SIZE);
     const batchResults = await Promise.all(
       batch.map(async city => {
-        const [jobs, qualityOfLife] = await Promise.all([
-          fetchJobCount(city.city, city.state),
-          fetchCityQualityScore(city.city, city.state, regionalScores),
-        ]);
+        const existing = basePayload.data.find(
+          row => row.city === city.city && row.state === city.state,
+        );
+        const jobs = await fetchJobCount(city.city, city.state);
 
         return {
           ...city,
           jobs,
-          qualityOfLife,
+          qualityOfLife: existing?.qualityOfLife ?? null,
         };
       }),
     );
@@ -115,14 +72,36 @@ async function buildCityData() {
   }
 
   return {
+    ...basePayload,
     data,
-    sources: {
-      jobs: 'The Muse Jobs API',
-      qualityOfLife: 'Numbeo Quality of Life Index',
-    },
-    jobsQuery: 'Software Engineering + frontend, by city',
     fetchedAt: new Date().toISOString(),
+    jobsRefreshedAt: new Date().toISOString(),
   };
+}
+
+function respondWithPayload(res, payload, extras = {}) {
+  return res.json({ ...payload, ...extras });
+}
+
+function scheduleBackgroundRefresh() {
+  if (refreshInFlight || !cache.payload) {
+    return refreshInFlight;
+  }
+
+  refreshInFlight = refreshJobCounts(cache.payload)
+    .then(payload => {
+      cache = { fetchedAt: Date.now(), payload };
+      return payload;
+    })
+    .catch(error => {
+      console.error('Background job refresh failed:', error.message);
+      return null;
+    })
+    .finally(() => {
+      refreshInFlight = null;
+    });
+
+  return refreshInFlight;
 }
 
 app.use(express.static(__dirname));
@@ -131,35 +110,47 @@ app.get('/api/cities', async (req, res) => {
   const forceRefresh = req.query.refresh === '1';
   const cacheIsFresh = cache.payload && Date.now() - cache.fetchedAt < CACHE_TTL_MS;
 
+  if (!cache.payload) {
+    return res.status(503).json({
+      error: 'City snapshot is not available. Run npm run build:snapshot and redeploy.',
+    });
+  }
+
   if (!forceRefresh && cacheIsFresh) {
-    return res.json(cache.payload);
+    return respondWithPayload(res, cache.payload);
+  }
+
+  if (!forceRefresh) {
+    scheduleBackgroundRefresh();
+    return respondWithPayload(res, cache.payload, {
+      stale: true,
+      warning: 'Serving bundled city data while refreshing job counts in the background.',
+    });
   }
 
   try {
-    const payload = await buildCityData();
+    const payload = await refreshJobCounts(cache.payload);
     cache = { fetchedAt: Date.now(), payload };
-    return res.json(payload);
+    return respondWithPayload(res, payload);
   } catch (error) {
     console.error(error);
-
-    if (cache.payload) {
-      return res.json({
-        ...cache.payload,
-        stale: true,
-        warning: 'Serving cached city data because a live data request failed.',
-      });
-    }
-
-    return res.status(502).json({ error: 'Unable to fetch live city data.' });
+    return respondWithPayload(res, cache.payload, {
+      stale: true,
+      warning: 'Serving bundled city data because a job refresh failed.',
+    });
   }
 });
 
-// Backward-compatible alias while developing locally.
 app.get('/api/jobs', (req, res) => {
   req.url = `/api/cities${req.url.includes('?') ? req.url.slice(req.url.indexOf('?')) : ''}`;
   app.handle(req, res);
 });
 
 app.listen(port, () => {
+  if (snapshotPayload) {
+    console.log(`Loaded bundled snapshot (${snapshotPayload.data.length} cities)`);
+  } else {
+    console.warn('No data/cities-snapshot.json found');
+  }
   console.log(`Jaqol running at http://127.0.0.1:${port}`);
 });

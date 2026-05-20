@@ -1,0 +1,411 @@
+{
+  "data": [
+    {
+      "city": "San Francisco",
+      "state": "CA",
+      "lat": 37.7749,
+      "lon": -122.4194,
+      "jobs": 1981,
+      "qualityOfLife": 153.33
+    },
+    {
+      "city": "San Jose",
+      "state": "CA",
+      "lat": 37.3382,
+      "lon": -121.8863,
+      "jobs": 2302,
+      "qualityOfLife": 160.34
+    },
+    {
+      "city": "Seattle",
+      "state": "WA",
+      "lat": 47.6062,
+      "lon": -122.3321,
+      "jobs": 2011,
+      "qualityOfLife": 177.35
+    },
+    {
+      "city": "New York",
+      "state": "NY",
+      "lat": 40.7128,
+      "lon": -74.006,
+      "jobs": 2517,
+      "qualityOfLife": 134.94
+    },
+    {
+      "city": "Austin",
+      "state": "TX",
+      "lat": 30.2672,
+      "lon": -97.7431,
+      "jobs": 2848,
+      "qualityOfLife": 173.83
+    },
+    {
+      "city": "Boston",
+      "state": "MA",
+      "lat": 42.3601,
+      "lon": -71.0589,
+      "jobs": 1872,
+      "qualityOfLife": 161.01
+    },
+    {
+      "city": "Los Angeles",
+      "state": "CA",
+      "lat": 34.0522,
+      "lon": -118.2437,
+      "jobs": 1875,
+      "qualityOfLife": 146.75
+    },
+    {
+      "city": "Denver",
+      "state": "CO",
+      "lat": 39.7392,
+      "lon": -104.9903,
+      "jobs": 1893,
+      "qualityOfLife": 159.99
+    },
+    {
+      "city": "Chicago",
+      "state": "IL",
+      "lat": 41.8781,
+      "lon": -87.6298,
+      "jobs": 1966,
+      "qualityOfLife": 145.49
+    },
+    {
+      "city": "Portland",
+      "state": "OR",
+      "lat": 45.5152,
+      "lon": -122.6784,
+      "jobs": 1668,
+      "qualityOfLife": 163.98
+    },
+    {
+      "city": "Atlanta",
+      "state": "GA",
+      "lat": 33.749,
+      "lon": -84.388,
+      "jobs": 1990,
+      "qualityOfLife": 164.31
+    },
+    {
+      "city": "Washington",
+      "state": "DC",
+      "lat": 38.9072,
+      "lon": -77.0369,
+      "jobs": 1780,
+      "qualityOfLife": 154.14
+    },
+    {
+      "city": "Raleigh",
+      "state": "NC",
+      "lat": 35.7796,
+      "lon": -78.6382,
+      "jobs": 1794,
+      "qualityOfLife": 170.14
+    },
+    {
+      "city": "Durham",
+      "state": "NC",
+      "lat": 35.994,
+      "lon": -78.8986,
+      "jobs": 1673,
+      "qualityOfLife": 175.5
+    },
+    {
+      "city": "Charlotte",
+      "state": "NC",
+      "lat": 35.2271,
+      "lon": -80.8431,
+      "jobs": 1897,
+      "qualityOfLife": 173.21
+    },
+    {
+      "city": "Dallas",
+      "state": "TX",
+      "lat": 32.7767,
+      "lon": -96.797,
+      "jobs": 1991,
+      "qualityOfLife": 174.17
+    },
+    {
+      "city": "Houston",
+      "state": "TX",
+      "lat": 29.7604,
+      "lon": -95.3698,
+      "jobs": 1922,
+      "qualityOfLife": 158.59
+    },
+    {
+      "city": "Phoenix",
+      "state": "AZ",
+      "lat": 33.4484,
+      "lon": -112.074,
+      "jobs": 1698,
+      "qualityOfLife": 154.87
+    },
+    {
+      "city": "Salt Lake City",
+      "state": "UT",
+      "lat": 40.7608,
+      "lon": -111.891,
+      "jobs": 1906,
+      "qualityOfLife": 166.56
+    },
+    {
+      "city": "Minneapolis",
+      "state": "MN",
+      "lat": 44.9778,
+      "lon": -93.265,
+      "jobs": 1847,
+      "qualityOfLife": 164.89
+    },
+    {
+      "city": "Madison",
+      "state": "WI",
+      "lat": 43.0731,
+      "lon": -89.4012,
+      "jobs": 1613,
+      "qualityOfLife": 183.83
+    },
+    {
+      "city": "Philadelphia",
+      "state": "PA",
+      "lat": 39.9526,
+      "lon": -75.1652,
+      "jobs": 1769,
+      "qualityOfLife": 150.05
+    },
+    {
+      "city": "Pittsburgh",
+      "state": "PA",
+      "lat": 40.4406,
+      "lon": -79.9959,
+      "jobs": 1746,
+      "qualityOfLife": 158.39
+    },
+    {
+      "city": "Baltimore",
+      "state": "MD",
+      "lat": 39.2904,
+      "lon": -76.6122,
+      "jobs": 1788,
+      "qualityOfLife": 154.64
+    },
+    {
+      "city": "Miami",
+      "state": "FL",
+      "lat": 25.7617,
+      "lon": -80.1918,
+      "jobs": 1736,
+      "qualityOfLife": 153.75
+    },
+    {
+      "city": "Tampa",
+      "state": "FL",
+      "lat": 27.9506,
+      "lon": -82.4572,
+      "jobs": 1813,
+      "qualityOfLife": 171.87
+    },
+    {
+      "city": "Orlando",
+      "state": "FL",
+      "lat": 28.5383,
+      "lon": -81.3792,
+      "jobs": 1783,
+      "qualityOfLife": 172.09
+    },
+    {
+      "city": "Nashville",
+      "state": "TN",
+      "lat": 36.1627,
+      "lon": -86.7816,
+      "jobs": 1853,
+      "qualityOfLife": 171.6
+    },
+    {
+      "city": "Columbus",
+      "state": "OH",
+      "lat": 39.9612,
+      "lon": -82.9988,
+      "jobs": 1956,
+      "qualityOfLife": 169.12
+    },
+    {
+      "city": "Indianapolis",
+      "state": "IN",
+      "lat": 39.7684,
+      "lon": -86.1581,
+      "jobs": 2416,
+      "qualityOfLife": 172.17
+    },
+    {
+      "city": "Detroit",
+      "state": "MI",
+      "lat": 42.3314,
+      "lon": -83.0458,
+      "jobs": 1701,
+      "qualityOfLife": 138.24
+    },
+    {
+      "city": "Ann Arbor",
+      "state": "MI",
+      "lat": 42.2808,
+      "lon": -83.743,
+      "jobs": 1598,
+      "qualityOfLife": 200.26
+    },
+    {
+      "city": "Cleveland",
+      "state": "OH",
+      "lat": 41.4993,
+      "lon": -81.6944,
+      "jobs": 1713,
+      "qualityOfLife": 167.91
+    },
+    {
+      "city": "Cincinnati",
+      "state": "OH",
+      "lat": 39.1031,
+      "lon": -84.512,
+      "jobs": 1888,
+      "qualityOfLife": 185.11
+    },
+    {
+      "city": "St. Louis",
+      "state": "MO",
+      "lat": 38.627,
+      "lon": -90.1994,
+      "jobs": 1870,
+      "qualityOfLife": 194.41
+    },
+    {
+      "city": "Kansas City",
+      "state": "MO",
+      "lat": 39.0997,
+      "lon": -94.5786,
+      "jobs": 1761,
+      "qualityOfLife": 175.13
+    },
+    {
+      "city": "Omaha",
+      "state": "NE",
+      "lat": 41.2565,
+      "lon": -95.9345,
+      "jobs": 1749,
+      "qualityOfLife": 173.85
+    },
+    {
+      "city": "Boise",
+      "state": "ID",
+      "lat": 43.615,
+      "lon": -116.2023,
+      "jobs": 1649,
+      "qualityOfLife": 198.06
+    },
+    {
+      "city": "Las Vegas",
+      "state": "NV",
+      "lat": 36.1699,
+      "lon": -115.1398,
+      "jobs": 1773,
+      "qualityOfLife": 146.04
+    },
+    {
+      "city": "San Diego",
+      "state": "CA",
+      "lat": 32.7157,
+      "lon": -117.1611,
+      "jobs": 2167,
+      "qualityOfLife": 161.72
+    },
+    {
+      "city": "Sacramento",
+      "state": "CA",
+      "lat": 38.5816,
+      "lon": -121.4944,
+      "jobs": 1708,
+      "qualityOfLife": 164.36
+    },
+    {
+      "city": "Oakland",
+      "state": "CA",
+      "lat": 37.8044,
+      "lon": -122.2712,
+      "jobs": 1601,
+      "qualityOfLife": 160.51
+    },
+    {
+      "city": "Boulder",
+      "state": "CO",
+      "lat": 40.015,
+      "lon": -105.2705,
+      "jobs": 1681,
+      "qualityOfLife": 207.07
+    },
+    {
+      "city": "Orem",
+      "state": "UT",
+      "lat": 40.2969,
+      "lon": -111.6946,
+      "jobs": 1594,
+      "qualityOfLife": 217.89
+    },
+    {
+      "city": "Richmond",
+      "state": "VA",
+      "lat": 37.5407,
+      "lon": -77.436,
+      "jobs": 1906,
+      "qualityOfLife": 194.01
+    },
+    {
+      "city": "Virginia Beach",
+      "state": "VA",
+      "lat": 36.8529,
+      "lon": -75.978,
+      "jobs": 1664,
+      "qualityOfLife": 205.14
+    },
+    {
+      "city": "Albuquerque",
+      "state": "NM",
+      "lat": 35.0844,
+      "lon": -106.6504,
+      "jobs": 1647,
+      "qualityOfLife": 154.59
+    },
+    {
+      "city": "Tucson",
+      "state": "AZ",
+      "lat": 32.2226,
+      "lon": -110.9747,
+      "jobs": 1695,
+      "qualityOfLife": 167.03
+    },
+    {
+      "city": "Honolulu",
+      "state": "HI",
+      "lat": 21.3069,
+      "lon": -157.8583,
+      "jobs": 1643,
+      "qualityOfLife": 153.98
+    },
+    {
+      "city": "Anchorage",
+      "state": "AK",
+      "lat": 61.2181,
+      "lon": -149.9003,
+      "jobs": 1593,
+      "qualityOfLife": 167.41
+    }
+  ],
+  "sources": {
+    "jobs": "The Muse Jobs API",
+    "qualityOfLife": "Numbeo Quality of Life Index (Internet Archive snapshots)"
+  },
+  "jobsQuery": "Software Engineering + frontend, by city",
+  "fetchedAt": "2026-05-20T04:10:44.312Z",
+  "snapshot": true
+}
