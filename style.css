@@ -2,25 +2,74 @@ body {
   background-color: #1E2127;
   font-family: 'IBM Plex Mono', monospace;
   color: #fff;
+  margin: 0;
 }
 
-.loader, h2 {
+.page-header {
+  padding: 16px 20px 8px;
+  text-align: center;
+}
+
+.page-header h2 {
+  margin: 0 0 10px;
+  font-size: 1.35rem;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.75rem;
+  opacity: 0.75;
+}
+
+.legend li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.legend-icon {
+  display: inline-block;
+  flex-shrink: 0;
+  border-radius: 50%;
+}
+
+.legend-icon-size {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #fff;
+  background: transparent;
+}
+
+.legend-icon-color {
+  width: 14px;
+  height: 14px;
+  background: linear-gradient(to right, #d64545, #f0d045, #3cb371);
+}
+
+.loader {
   position: absolute;
+  top: 45%;
   left: 50%;
   transform: translate(-50%, 0);
 }
 
-.loader {
-  top: 40%;
-}
-
-h2 {
-  top: 10px;
+.load-error {
+  color: #fff;
+  text-align: center;
+  margin-top: 120px;
 }
 
 #map {
   display: flex;
-  margin: 30px auto 0;
+  margin: 0 auto;
   justify-content: center;
   align-items: center;
 }
